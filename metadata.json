@@ -1,0 +1,6 @@
+{
+  "name": "TrustyCart - IQRA Intelligence Talking Book",
+  "description": "Professional Bengali landing page for IQRA Intelligence Talking Book with Cash on Delivery in Bangladesh, Meta Pixel event tracking, order management, and Netlify deployment readiness.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
