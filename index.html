@@ -16,6 +16,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="bg-[#FFFDF9] text-[#1E293B] antialiased selection:bg-amber-200 selection:text-amber-900">
+    <!-- Netlify Forms static detection for SPA crawlers -->
+    <form name="orders" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="orders" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="customerName" />
+      <input type="tel" name="customerPhone" />
+      <input type="text" name="district" />
+      <input type="text" name="upazila" />
+      <textarea name="address"></textarea>
+      <input type="number" name="quantity" />
+      <input type="text" name="deliveryInstructions" />
+      <input type="text" name="totalAmount" />
+      <input type="text" name="paymentMethod" />
+      <input type="text" name="warranty" />
+    </form>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -117,6 +117,32 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
         utmParams: storedUtms,
       };
 
+      // 1. Send submission to Netlify Forms (x-www-form-urlencoded)
+      try {
+        const netlifyData = new URLSearchParams();
+        netlifyData.append('form-name', 'orders');
+        netlifyData.append('customerName', customerName.trim());
+        netlifyData.append('customerPhone', customerPhone.trim());
+        netlifyData.append('district', selectedDistrictInfo.nameBn);
+        netlifyData.append('upazila', upazila.trim() || 'N/A');
+        netlifyData.append('address', address.trim());
+        netlifyData.append('quantity', String(quantity));
+        netlifyData.append('deliveryInstructions', deliveryInstructions.trim() || 'N/A');
+        netlifyData.append('totalAmount', `৳${totalAmount}`);
+        netlifyData.append('paymentMethod', 'Cash on Delivery');
+        netlifyData.append('warranty', '১ বছরের অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি');
+
+        await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: netlifyData.toString(),
+        });
+      } catch (netErr) {
+        // Log warning but proceed with order processing
+        console.warn('Netlify form submission note:', netErr);
+      }
+
+      // 2. Process order locally & via internal backend for instant order tracking
       const result = await orderService.submitOrder(orderPayload);
 
       if (result.success && result.order) {
@@ -166,7 +192,23 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
         <div className="bg-[#FFFDF9] rounded-3xl border-2 border-amber-300 shadow-xl overflow-hidden">
           
           <div className="p-6 sm:p-9" onFocus={handleFormInteraction} onClick={handleFormInteraction}>
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form 
+              name="orders" 
+              method="POST" 
+              data-netlify="true" 
+              data-netlify-honeypot="bot-field"
+              onSubmit={handleSubmit} 
+              className="space-y-5"
+            >
+              {/* Netlify Forms Hidden Inputs */}
+              <input type="hidden" name="form-name" value="orders" />
+              <input type="hidden" name="quantity" value={quantity} />
+              <input type="hidden" name="totalAmount" value={`৳${totalAmount}`} />
+              <input type="hidden" name="paymentMethod" value="Cash on Delivery" />
+              <input type="hidden" name="warranty" value="১ বছরের অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি" />
+              <div className="hidden" aria-hidden="true">
+                <label>Don’t fill this out: <input name="bot-field" tabIndex={-1} autoComplete="off" /></label>
+              </div>
               
               {/* Error Notice */}
               {errorMessage && (
@@ -188,6 +230,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
                     <User className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
+                      name="customerName"
                       required
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
@@ -206,6 +249,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
                     <Phone className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="tel"
+                      name="customerPhone"
                       required
                       maxLength={11}
                       value={customerPhone}
@@ -227,6 +271,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
                   <div className="relative">
                     <MapPin className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <select
+                      name="district"
                       value={district}
                       onChange={(e) => setDistrict(e.target.value)}
                       className="w-full pl-11 pr-10 py-3 bg-white border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 rounded-xl text-sm text-slate-900 outline-none transition-all appearance-none cursor-pointer"
@@ -253,6 +298,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
                     <Building className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
+                      name="upazila"
                       value={upazila}
                       onChange={(e) => setUpazila(e.target.value)}
                       placeholder="যেমন: মিরপুর / ধানমন্ডি / সদর"
@@ -272,6 +318,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
                   <FileText className="w-5 h-5 text-slate-400 absolute left-3.5 top-3.5" />
                   <textarea
                     rows={2}
+                    name="address"
                     required
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
@@ -326,6 +373,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
                 </label>
                 <input
                   type="text"
+                  name="deliveryInstructions"
                   value={deliveryInstructions}
                   onChange={(e) => setDeliveryInstructions(e.target.value)}
                   placeholder="যেমন: কল করে আসবেন / অফিস টাইমে ডেলিভারি দিন"
