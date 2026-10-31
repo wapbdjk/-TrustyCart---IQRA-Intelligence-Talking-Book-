@@ -39,7 +39,7 @@ export const STORE_CONFIG = {
 
     // নিজস্ব প্রোডাক্ট ভিডিও কনফিগারেশন
     video: {
-      videoUrl: 'https://youtube.com/shorts/abIJnSY4JPc?si=jHTibAo-2ZcIH1q4', 
+      videoUrl: 'https://youtube.com/shorts/xwwYf0-GIv0?si=EEM8rJkCsMGq30gC', 
       title: 'IQRA Intelligence Talking Book ভিডিও ডেমো ও ব্যবহারবিধি',
       posterImage: '/images/iqra_talking_book_main.jpg'
     },

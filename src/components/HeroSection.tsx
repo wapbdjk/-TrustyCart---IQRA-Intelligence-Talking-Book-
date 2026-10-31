@@ -43,7 +43,8 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
-  const [activeMedia, setActiveMedia] = useState<'image' | 'video'>('image');
+  // Default to 'video' so visitors immediately see the video on the front page
+  const [activeMedia, setActiveMedia] = useState<'image' | 'video'>('video');
   const [activeImage, setActiveImage] = useState<string>(STORE_CONFIG.product.images.hero);
   const [customVideoUrl, setCustomVideoUrl] = useState<string>(STORE_CONFIG.product.video.videoUrl);
 
@@ -236,7 +237,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
             </div>
 
             {/* Media Display Area */}
-            <div className="relative group bg-white p-2.5 rounded-2xl border border-amber-200 shadow-md overflow-hidden aspect-4/3 sm:aspect-4/3 flex items-center justify-center">
+            <div className={`relative group bg-white p-2.5 rounded-2xl border border-amber-200 shadow-md overflow-hidden flex items-center justify-center transition-all ${
+              activeMedia === 'video' ? 'h-[480px] sm:h-[500px] w-full' : 'aspect-4/3'
+            }`}>
               {activeMedia === 'image' ? (
                 <div 
                   className="relative w-full h-full cursor-zoom-in group"

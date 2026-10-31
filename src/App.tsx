@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header.tsx';
 import { HeroSection } from './components/HeroSection.tsx';
+import { VideoSection } from './components/VideoSection.tsx';
 import { InsideBookSection } from './components/InsideBookSection.tsx';
 import { SmartButtonsSection } from './components/SmartButtonsSection.tsx';
 import { InteractiveAudioDemo } from './components/InteractiveAudioDemo.tsx';
@@ -75,7 +76,10 @@ export default function App() {
         {/* 1. Hero Section (Headline, Media, Pricing, 1-Year Warranty & Free Delivery Badges) */}
         <HeroSection onOpenGallery={handleOpenGallery} />
 
-        {/* 2. Inside The Book (64 Pages, 100+ Content) & 5 Skill Developments */}
+        {/* 2. Front Page Featured Video Showcase (Live YouTube Shorts Video Review & Demonstration) */}
+        <VideoSection />
+
+        {/* 3. Inside The Book (64 Pages, 100+ Content) & 5 Skill Developments */}
         <InsideBookSection />
 
         {/* 3. 4 Smart Interactive Buttons (Recording, Question, Read, Volume) & Technical Specs */}

@@ -3,20 +3,17 @@ import {
   ShoppingBag, 
   User, 
   Phone, 
-  MapPin, 
-  Building, 
   FileText, 
   Plus, 
   Minus, 
   ShieldCheck, 
-  AlertCircle,
-  Truck,
-  CheckCircle2,
-  Loader2,
-  Check
+  AlertCircle, 
+  Truck, 
+  CheckCircle2, 
+  Loader2, 
+  Check 
 } from 'lucide-react';
 import { STORE_CONFIG } from '../config/storeConfig.ts';
-import { BANGLADESH_DISTRICTS } from '../data/districts.ts';
 import { Order } from '../types.ts';
 import { orderService, formatTaka, toBengaliNumerals } from '../services/orderService.ts';
 import { pixelService } from '../services/pixelService.ts';
@@ -26,24 +23,21 @@ interface OrderFormProps {
 }
 
 export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
-  // Form fields
+  // 3 Essential Billing Form Fields requested by user:
+  // ১. আপনার নাম *
+  // ২. মোবাইল নম্বর *
+  // ৩. সম্পূর্ণ ডেলিভারি ঠিকানা *
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
-  const [district, setDistrict] = useState('dhaka');
-  const [upazila, setUpazila] = useState('');
   const [address, setAddress] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const [deliveryInstructions, setDeliveryInstructions] = useState('');
 
   // UI state
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [hasInitiatedCheckout, setHasInitiatedCheckout] = useState(false);
 
-  // Selected district info
-  const selectedDistrictInfo = BANGLADESH_DISTRICTS.find(d => d.id === district) || BANGLADESH_DISTRICTS[0];
-
-  // Pricing calculations: ৳999 per unit, ৳0 Delivery charge
+  // Pricing calculations: ৳999 per unit, ৳0 Delivery charge all over Bangladesh
   const unitPrice = STORE_CONFIG.product.currentPrice; // 999
   const deliveryFee = 0; // সারা বাংলাদেশে ফ্রি ডেলিভারি (৳০)
   const subtotal = unitPrice * quantity;
@@ -79,13 +73,8 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
       return false;
     }
 
-    if (!district) {
-      setErrorMessage('অনুগ্রহ করে আপনার জেলা নির্বাচন করুন।');
-      return false;
-    }
-
     if (!address.trim() || address.trim().length < 5) {
-      setErrorMessage('অনুগ্রহ করে সম্পূর্ণ ডেলিভারি ঠিকানা (বাসা/রোড/এলাকা) বিস্তারিত লিখুন।');
+      setErrorMessage('অনুগ্রহ করে আপনার সম্পূর্ণ ডেলিভারি ঠিকানা (জেলা, থানা, বাসা/রোড/এলাকা) লিখুন।');
       return false;
     }
 
@@ -105,15 +94,15 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
       const orderPayload = {
         customerName: customerName.trim(),
         customerPhone: customerPhone.trim(),
-        district: selectedDistrictInfo.nameBn,
-        upazila: upazila.trim(),
+        district: 'সারা বাংলাদেশ',
+        upazila: '',
         address: address.trim(),
         quantity,
         unitPrice,
         deliveryFee: 0,
         totalAmount,
         paymentMethod: 'Cash on Delivery' as const,
-        deliveryInstructions: deliveryInstructions.trim(),
+        deliveryInstructions: '',
         utmParams: storedUtms,
       };
 
@@ -123,11 +112,9 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
         netlifyData.append('form-name', 'orders');
         netlifyData.append('customerName', customerName.trim());
         netlifyData.append('customerPhone', customerPhone.trim());
-        netlifyData.append('district', selectedDistrictInfo.nameBn);
-        netlifyData.append('upazila', upazila.trim() || 'N/A');
         netlifyData.append('address', address.trim());
         netlifyData.append('quantity', String(quantity));
-        netlifyData.append('deliveryInstructions', deliveryInstructions.trim() || 'N/A');
+        netlifyData.append('deliveryFee', 'ফ্রি (৳০)');
         netlifyData.append('totalAmount', `৳${totalAmount}`);
         netlifyData.append('paymentMethod', 'Cash on Delivery');
         netlifyData.append('warranty', '১ বছরের অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি');
@@ -152,9 +139,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
         // Reset form
         setCustomerName('');
         setCustomerPhone('');
-        setUpazila('');
         setAddress('');
-        setDeliveryInstructions('');
         setQuantity(1);
 
         onOrderSuccess(result.order, result.isLocalFallback);
@@ -218,114 +203,76 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
                 </div>
               )}
 
-              {/* Form Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+              {/* Billing Details Fields - Only 3 Fields: Name, Phone, Address */}
+              <div className="space-y-4">
                 
-                {/* Customer Name */}
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-bold text-slate-800">
-                    আপনার নাম <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <User className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      name="customerName"
-                      required
-                      value={customerName}
-                      onChange={(e) => setCustomerName(e.target.value)}
-                      placeholder="যেমন: মোঃ আরিফুল ইসলাম"
-                      className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 rounded-xl text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400"
-                    />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Customer Name */}
+                  <div className="space-y-1.5">
+                    <label className="block text-sm font-bold text-slate-800">
+                      আপনার নাম <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <User className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        name="customerName"
+                        required
+                        value={customerName}
+                        onChange={(e) => setCustomerName(e.target.value)}
+                        placeholder="যেমন: মোঃ আরিফুল ইসলাম"
+                        className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 rounded-xl text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 shadow-xs"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Mobile Phone Number */}
+                  <div className="space-y-1.5">
+                    <label className="block text-sm font-bold text-slate-800">
+                      মোবাইল নম্বর <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <Phone className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="tel"
+                        name="customerPhone"
+                        required
+                        maxLength={11}
+                        value={customerPhone}
+                        onChange={handlePhoneChange}
+                        placeholder="যেমন: 01XXXXXXXXX (১১ ডিজিট)"
+                        className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 rounded-xl text-sm text-slate-900 outline-none transition-all font-ui placeholder:text-slate-400 shadow-xs"
+                      />
+                    </div>
+                    <span className="text-[11px] text-slate-500">
+                      ডেলিভারির পূর্বে এই নম্বরে কল করে কনফার্ম করা হবে
+                    </span>
                   </div>
                 </div>
 
-                {/* Mobile Phone Number */}
+                {/* Full Address */}
                 <div className="space-y-1.5">
                   <label className="block text-sm font-bold text-slate-800">
-                    মোবাইল নম্বর <span className="text-red-500">*</span>
+                    সম্পূর্ণ ডেলিভারি ঠিকানা <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <Phone className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="tel"
-                      name="customerPhone"
+                    <FileText className="w-5 h-5 text-slate-400 absolute left-3.5 top-3.5" />
+                    <textarea
+                      rows={2}
+                      name="address"
                       required
-                      maxLength={11}
-                      value={customerPhone}
-                      onChange={handlePhoneChange}
-                      placeholder="যেমন: 01XXXXXXXXX (১১ ডিজিট)"
-                      className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 rounded-xl text-sm text-slate-900 outline-none transition-all font-ui placeholder:text-slate-400"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      placeholder="জেলা, থানা/উপজেলা, রোড নং, বাসা নং বা এলাকার নাম বিস্তারিত লিখুন"
+                      className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 rounded-xl text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 resize-none shadow-xs"
                     />
                   </div>
-                  <span className="text-[11px] text-slate-500">
-                    ডেলিভারির পূর্বে এই নম্বরে কল করে কনফার্ম করা হবে
+                  <span className="text-[11px] text-emerald-700 font-medium flex items-center gap-1">
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>সারা বাংলাদেশে হোম ডেলিভারি সম্পূর্ণ ফ্রি</span>
                   </span>
                 </div>
 
-                {/* District Dropdown */}
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-bold text-slate-800">
-                    আপনার জেলা <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <MapPin className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                    <select
-                      name="district"
-                      value={district}
-                      onChange={(e) => setDistrict(e.target.value)}
-                      className="w-full pl-11 pr-10 py-3 bg-white border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 rounded-xl text-sm text-slate-900 outline-none transition-all appearance-none cursor-pointer"
-                    >
-                      {BANGLADESH_DISTRICTS.map((d) => (
-                        <option key={d.id} value={d.id}>
-                          {d.nameBn}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <span className="text-[11px] text-emerald-700 font-bold flex items-center gap-1">
-                    <Check className="w-3 h-3 text-emerald-600" />
-                    <span>এই জেলায় সম্পূর্ণ ফ্রি ডেলিভারি (চার্জ ৳০)</span>
-                  </span>
-                </div>
-
-                {/* Thana / Upazila */}
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-bold text-slate-800">
-                    থানা / উপজেলা / এলাকা
-                  </label>
-                  <div className="relative">
-                    <Building className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      name="upazila"
-                      value={upazila}
-                      onChange={(e) => setUpazila(e.target.value)}
-                      placeholder="যেমন: মিরপুর / ধানমন্ডি / সদর"
-                      className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 rounded-xl text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400"
-                    />
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Full Address */}
-              <div className="space-y-1.5">
-                <label className="block text-sm font-bold text-slate-800">
-                  সম্পূর্ণ ডেলিভারি ঠিকানা <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <FileText className="w-5 h-5 text-slate-400 absolute left-3.5 top-3.5" />
-                  <textarea
-                    rows={2}
-                    name="address"
-                    required
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="বাসা নং, রোড নং, পাড়া/গ্রাম বা পরিচিত ল্যান্ডমার্ক বিস্তারিত লিখুন"
-                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 rounded-xl text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 resize-none"
-                  />
-                </div>
               </div>
 
               {/* Quantity Selector: ৳999 per unit */}
@@ -366,21 +313,6 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
                 </div>
               </div>
 
-              {/* Optional Special Instructions */}
-              <div className="space-y-1.5">
-                <label className="block text-xs font-semibold text-slate-600">
-                  ডেলিভারির বিশেষ নির্দেশনা (ঐচ্ছিক)
-                </label>
-                <input
-                  type="text"
-                  name="deliveryInstructions"
-                  value={deliveryInstructions}
-                  onChange={(e) => setDeliveryInstructions(e.target.value)}
-                  placeholder="যেমন: কল করে আসবেন / অফিস টাইমে ডেলিভারি দিন"
-                  className="w-full px-4 py-2.5 bg-white border border-slate-200 focus:border-amber-400 rounded-xl text-xs text-slate-900 outline-none transition-all placeholder:text-slate-400"
-                />
-              </div>
-
               {/* Order Summary Box: ৳999 per unit, Delivery ৳0 */}
               <div className="p-5 rounded-2xl bg-amber-50/80 border border-amber-200 space-y-2.5 text-sm">
                 <div className="flex items-center justify-between text-slate-700">
@@ -393,7 +325,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
                 <div className="flex items-center justify-between text-slate-700">
                   <span className="flex items-center gap-1.5 text-emerald-800 font-semibold">
                     <Truck className="w-4 h-4 text-emerald-600" />
-                    <span>ডেলিভারি চার্জ ({selectedDistrictInfo.nameBn}):</span>
+                    <span>ডেলিভারি চার্জ (সারা বাংলাদেশ):</span>
                   </span>
                   <span className="font-bold text-emerald-700 font-ui">
                     ফ্রি (৳০)
