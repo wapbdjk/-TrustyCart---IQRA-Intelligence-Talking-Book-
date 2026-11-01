@@ -23,17 +23,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAdmin, onOpenGuide, onOpen
 
   return (
     <header className="sticky top-0 z-40 bg-[#FFFDF9]/95 backdrop-blur-md border-b border-amber-100 shadow-xs">
-      {/* Top announcement bar - Free Delivery & 1-Year Warranty in Bangladesh */}
+      {/* Top announcement bar - Free Delivery & 5-in-1 Combo in Bangladesh */}
       <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white text-xs py-1.5 px-4 text-center font-bold tracking-wide">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
           <ShieldCheck className="w-4 h-4 shrink-0 text-emerald-200" />
-          <span>সারা বাংলাদেশে ফ্রি ডেলিভারি (চার্জ: ৳০) · ১ বছরের অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি · ক্যাশ অন ডেলিভারি</span>
+          <span>সারা বাংলাদেশে ফ্রি হোম ডেলিভারি (চার্জ: ৳০) · ৫-ইন-১ সম্পূর্ণ কম্বো অফার · ক্যাশ অন ডেলিভারি</span>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6 h-16">
-          {/* Zone 1: Single text element wordmark */}
+          {/* Zone 1: Wordmark */}
           <div className="flex items-center gap-2 shrink-0">
             <a 
               href="#" 
@@ -43,58 +43,46 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAdmin, onOpenGuide, onOpen
             </a>
           </div>
 
-          {/* Zone 2: Navigation Links */}
+          {/* Zone 2: Navigation Links based on user-requested simplified flow */}
           <nav className="hidden md:flex items-center gap-5 lg:gap-6 text-sm font-medium text-slate-700">
             <button 
-              onClick={() => scrollToSection('inside-book')} 
-              className="hover:text-amber-600 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              ভেতরের কনটেন্ট
-            </button>
-            <button 
-              onClick={() => scrollToSection('smart-buttons')} 
+              onClick={() => scrollToSection('video-section')} 
               className="hover:text-amber-600 transition-colors whitespace-nowrap shrink-0 cursor-pointer text-amber-700 font-semibold"
             >
-              স্মার্ট বোতাম
-            </button>
-            <button 
-              onClick={() => scrollToSection('sound-demo')} 
-              className="hover:text-amber-600 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              সাউন্ড ডেমো
+              ভিডিও ডেমো
             </button>
             <button 
               onClick={() => scrollToSection('package')} 
               className="hover:text-amber-600 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
-              প্যাকেজ
+              কম্বোতে যা পাবেন
             </button>
             <button 
-              onClick={() => scrollToSection('reviews')} 
+              onClick={() => scrollToSection('pricing')} 
               className="hover:text-amber-600 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
-              রিভিউ
+              দাম ও অফার
             </button>
             <button 
               onClick={() => scrollToSection('faq')} 
               className="hover:text-amber-600 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
-              প্রশ্ন-উত্তর
+              শর্ত ও প্রশ্নোত্তর
             </button>
             {onOpenGallery && (
               <button 
                 onClick={onOpenGallery} 
                 className="hover:text-amber-600 transition-colors whitespace-nowrap shrink-0 cursor-pointer text-amber-700 bg-amber-50 hover:bg-amber-100/80 px-2.5 py-1 rounded-lg text-xs font-bold border border-amber-200"
-                title="বিজ্ঞাপনের জন্য আসল ছবি দেখুন ও ডাউনলোড করুন"
+                title="আসল ৩টি ছবি বড় করে দেখুন"
               >
-                📸 ছবি গ্যালারি (HD)
+                📸 আসল ছবি
               </button>
             )}
           </nav>
 
           {/* Zone 3: 1 primary action button + Phone Placeholder */}
           <div className="flex items-center gap-3 shrink-0">
-            {hasRealPhone ? (
+            {hasRealPhone && (
               <a
                 href={`tel:${STORE_CONFIG.helplinePhone}`}
                 className="hidden lg:flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-amber-600 px-3 py-2 rounded-lg bg-amber-50/70 transition-colors"
@@ -103,14 +91,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAdmin, onOpenGuide, onOpen
                 <PhoneCall className="w-3.5 h-3.5 text-amber-600" />
                 <span>{STORE_CONFIG.helplinePhone}</span>
               </a>
-            ) : (
-              <div 
-                className="hidden lg:flex items-center gap-1.5 text-xs font-mono font-medium text-slate-500 px-3 py-1.5 rounded-lg bg-slate-100 border border-slate-200"
-                title="ফোন নম্বর যুক্ত করতে storeConfig.ts এডিট করুন"
-              >
-                <PhoneCall className="w-3.5 h-3.5 text-slate-400" />
-                <span>[YOUR PHONE NUMBER]</span>
-              </div>
             )}
 
             <button
@@ -138,34 +118,34 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAdmin, onOpenGuide, onOpen
         <div className="md:hidden bg-[#FFFDF9] border-b border-amber-200 px-4 pt-3 pb-5 space-y-3 shadow-lg">
           <div className="flex flex-col space-y-2 text-base font-medium text-slate-800">
             <button 
-              onClick={() => scrollToSection('features')} 
-              className="text-left py-2 px-3 rounded-lg hover:bg-amber-50"
+              onClick={() => scrollToSection('video-section')} 
+              className="text-left py-2 px-3 rounded-lg hover:bg-amber-50 text-amber-700 font-semibold"
             >
-              বইয়ের মূল বৈশিষ্ট্য
-            </button>
-            <button 
-              onClick={() => scrollToSection('sound-demo')} 
-              className="text-left py-2 px-3 rounded-lg hover:bg-amber-50 text-amber-600 font-semibold"
-            >
-              সাউন্ড ডেমো ও উচ্চারণ
+              ভিডিও ডেমো
             </button>
             <button 
               onClick={() => scrollToSection('package')} 
               className="text-left py-2 px-3 rounded-lg hover:bg-amber-50"
             >
-              প্যাকেজে যা যা থাকছে
+              কম্বোতে যা যা পাবেন
             </button>
             <button 
-              onClick={() => scrollToSection('how-to-use')} 
+              onClick={() => scrollToSection('pricing')} 
               className="text-left py-2 px-3 rounded-lg hover:bg-amber-50"
             >
-              কীভাবে ব্যবহার করবেন
+              দাম ও অফার
+            </button>
+            <button 
+              onClick={() => scrollToSection('order-section')} 
+              className="text-left py-2 px-3 rounded-lg hover:bg-amber-50"
+            >
+              অর্ডার ফর্ম
             </button>
             <button 
               onClick={() => scrollToSection('faq')} 
               className="text-left py-2 px-3 rounded-lg hover:bg-amber-50"
             >
-              সচরাচর জিজ্ঞাসা (FAQ)
+              শর্ত ও প্রশ্নোত্তর
             </button>
             {onOpenGallery && (
               <button 
@@ -175,21 +155,21 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAdmin, onOpenGuide, onOpen
                 }} 
                 className="text-left py-2 px-3 rounded-lg bg-amber-50 text-amber-900 font-bold flex items-center justify-between"
               >
-                <span>📸 আসল ৪টি HD ছবি ও ডাউনলোড</span>
-                <span className="text-[10px] bg-amber-200 px-2 py-0.5 rounded text-amber-800">ফ্রি ডাউনলোড</span>
+                <span>📸 আসল ৩টি প্রোডাক্টের ছবি</span>
               </button>
             )}
             
-            <div className="pt-2 border-t border-slate-200 flex flex-col gap-2">
-              <div className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-amber-50 text-amber-900 text-xs font-medium">
-                <PhoneCall className="w-4 h-4 text-amber-600" />
-                <span>হেল্পলাইন: {hasRealPhone ? STORE_CONFIG.helplinePhone : '[YOUR PHONE NUMBER]'}</span>
+            {hasRealPhone && (
+              <div className="pt-2 border-t border-slate-200">
+                <a 
+                  href={`tel:${STORE_CONFIG.helplinePhone}`}
+                  className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-amber-50 text-amber-900 text-xs font-medium"
+                >
+                  <PhoneCall className="w-4 h-4 text-amber-600" />
+                  <span>হেল্পলাইন: {STORE_CONFIG.helplinePhone}</span>
+                </a>
               </div>
-              <div className="flex justify-between items-center text-xs text-slate-500 pt-1 px-1">
-                <button onClick={onOpenAdmin} className="text-slate-600 underline">অর্ডার ও পিক্সেল প্যানেল</button>
-                <button onClick={onOpenGuide} className="text-amber-700 underline">Netlify নির্দেশিকা</button>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       )}

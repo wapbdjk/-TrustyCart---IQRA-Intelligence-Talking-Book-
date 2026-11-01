@@ -120,11 +120,11 @@ export const VideoSection: React.FC = () => {
 
                 <div className="flex items-start gap-3 p-3 rounded-xl bg-amber-50/70 border border-amber-200/80">
                   <div className="w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center shrink-0 mt-0.5">
-                    <ShieldCheck className="w-4 h-4" />
+                    <Sparkles className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900">১ বছরের অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি</h4>
-                    <p className="text-xs text-slate-600">১ বছরের মধ্যে কোনো সমস্যা হলে সম্পূর্ণ রিপ্লেসমেন্ট সেবা পাবেন। কোনো ঝুঁকি নেই।</p>
+                    <h4 className="text-sm font-bold text-slate-900">৫-ইন-১ ফুল কম্বো আইটেম</h4>
+                    <p className="text-xs text-slate-600">টকিং বুক, ৮.৫" এলসিডি ড্রয়িং ট্যাবলেট, ওয়াটার ম্যাজিক বুক, ২টি পেন ও ক্যাবল এক সাথে।</p>
                   </div>
                 </div>
 

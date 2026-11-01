@@ -90,15 +90,15 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onScrollToOrder 
             </div>
 
             <div className="flex justify-between items-center text-slate-700">
-              <span>অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি:</span>
-              <span className="font-bold text-blue-700 font-ui">
-                ১ বছর (১২ মাস)
+              <span>পার্সেল দেখে নেওয়ার সুবিধা:</span>
+              <span className="font-bold text-emerald-800 font-ui">
+                ডেলিভারিম্যানের সামনে
               </span>
             </div>
 
             <div className="pt-2 border-t border-emerald-200/80 text-[11px] text-emerald-900 font-medium flex items-center gap-1">
               <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>৬৪ পৃষ্ঠার বিশাল বই, ১০০+ কনটেন্ট ও টাইপ-সি ক্যাবল সহ সম্পূর্ণ ফ্রি ডেলিভারি।</span>
+              <span>টকিং বুক + ৮.৫" LCD ট্যাবলেট + ওয়াটার ম্যাজিক বুক সহ ৫-ইন-১ সম্পূর্ণ কম্বো ফ্রি ডেলিভারি।</span>
             </div>
           </div>
 
@@ -111,16 +111,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onScrollToOrder 
             <ArrowDown className="w-5 h-5" />
           </button>
 
-          {/* COD Notice & Warranty */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xs text-slate-600 text-center">
+          {/* COD Notice */}
+          <div className="flex items-center justify-center gap-2 text-xs text-slate-600 text-center">
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>১০০% ক্যাশ অন ডেলিভারি</span>
-            </span>
-            <span className="hidden sm:inline" aria-hidden="true">·</span>
-            <span className="flex items-center gap-1.5 text-blue-800 font-semibold">
-              <ShieldCheck className="w-4 h-4 text-blue-600" />
-              <span>১ বছরের অফিসিয়াল ওয়ারেন্টি</span>
+              <span>১০০% ক্যাশ অন ডেলিভারি (পার্সেল হাতে পেয়ে মূল্য পরিশোধ)</span>
             </span>
           </div>
 

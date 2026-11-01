@@ -21,48 +21,37 @@ export interface ProductPhoto {
 
 export const PRODUCT_PHOTOS: ProductPhoto[] = [
   {
-    id: 'hero',
-    titleBn: '১. IQRA ইন্টেলিজেন্ট টকিং বুক ও স্মার্ট টাচ পেন',
-    titleEn: 'Main Talking Book Cover & Stylus Pen',
-    filename: 'iqra_talking_book_main.jpg',
-    url: '/images/iqra_talking_book_main.jpg',
-    resolution: '1024 x 1024 px (HD Square for FB & IG)',
-    tag: 'প্রধান বিজ্ঞাপন ছবি',
-    description: 'বইয়ের প্রিমিয়াম কাভার, ডিজিটাল বিল্ট-ইন স্পিকার ও স্পর্শ সংবেদনশীল স্মার্ট টাচ পেন। ফেসবুক ও ইনস্টাগ্রাম ফিড অ্যাডের জন্য সবচেয়ে কার্যকর।',
-    adUsageTip: 'ফেসবুক ও ইনস্টাগ্রাম সিঙ্গেল ইমেজ অ্যাড বা ক্যারোসেলের প্রথম ছবির জন্য সেরা।'
+    id: 'combo',
+    titleBn: '১. সম্পূর্ণ ৫-ইন-১ কম্বো সেট',
+    titleEn: 'Full 5-in-1 Combo Pack with Talking Book, LCD Tablet & Water Magic Book',
+    filename: 'combo_full_package.jpg',
+    url: '/images/combo_full_package.jpg',
+    resolution: '1000 x 1000 px (HD)',
+    tag: 'প্রধান কম্বো ছবি',
+    description: 'IQRA টকিং বুক, ৮.৫ ইঞ্চি কালারফুল LCD রাইটিং ট্যাবলেট, ওয়াটার ম্যাজিক বুক, ২টি স্পেশাল মার্কার ও ইউএসবি চার্জিং কেবল।',
+    adUsageTip: 'ফেসবুক ও ইনস্টাগ্রাম ফিড অ্যাডের প্রধান থাম্বনেইল হিসেবে ব্যবহারের জন্য সবচেয়ে উপযুক্ত।'
   },
   {
-    id: 'package',
-    titleBn: '২. সম্পূর্ণ প্যাকেজ আনবক্সিং ও গিফট বক্স সেট',
-    titleEn: 'Full Package Box Set & Unboxing',
-    filename: 'iqra_talking_book_package.jpg',
-    url: '/images/iqra_talking_book_package.jpg',
-    resolution: '1024 x 1024 px (HD Square)',
-    tag: 'প্যাকেজের ছবি',
-    description: 'আসল গিফট বক্স, ৬৪ পৃষ্ঠার টকিং বুক, স্মার্ট টাচ পেন, ড্রয়িং মার্কার, টাইপ-সি (Type-C) চার্জিং কেবল ও ১ বছরের অফিসিয়াল ওয়ারেন্টি কার্ড।',
-    adUsageTip: 'কাস্টমারকে ট্রাস্ট করাতে ও প্যাকেজে কী কী থাকছে তা স্পষ্টভাবে দেখাতে এই ছবি ব্যবহার করুন।'
+    id: 'tablet',
+    titleBn: '২. টকিং বুক ও ৮.৫" LCD কালারফুল রাইটিং ট্যাবলেট',
+    titleEn: 'IQRA Talking Book & 8.5 Inch LCD Writing Tablet',
+    filename: 'talking_book_with_lcd_tablet.jpg',
+    url: '/images/talking_book_with_lcd_tablet.jpg',
+    resolution: '1000 x 1000 px (HD)',
+    tag: 'টকিং বুক ও স্লেট',
+    description: 'শিশুর পড়ার জন্য সাউন্ড বুক এবং আঁকাআঁকি ও লেখার জন্য রঙিন ডিজিটাল স্লেট—এক সাথে দুটি গ্যাজেট।',
+    adUsageTip: 'বাচ্চার পড়ার পাশাপাশি লেখার সুযোগ রয়েছে তা বোঝাতে এই ছবি পোস্ট করুন।'
   },
   {
-    id: 'detail',
-    titleBn: '৩. ইন্টারঅ্যাক্টিভ সাউন্ড পেজ ও স্মার্ট বোতাম',
-    titleEn: 'Inside Interactive Sound Pages & Smart Buttons',
-    filename: 'iqra_talking_book_features.jpg',
-    url: '/images/iqra_talking_book_features.jpg',
-    resolution: '1024 x 1024 px (HD Square)',
-    tag: 'ভেতরের কনটেন্ট',
-    description: 'বইটির ভেতরের রঙিন পাতা—বাংলা স্বরবর্ণ ও ব্যঞ্জনবর্ণ, আরবি বর্ণমালা, ইংরেজি Alphabet এবং নিচে থাকা ৪টি স্মার্ট ইন্টারঅ্যাক্টিভ বোতাম।',
-    adUsageTip: 'বইয়ের ৩টি ভাষা ও শিক্ষণীয় কনটেন্টের বৈচিত্র্য হাইলাইট করার জন্য আদর্শ।'
-  },
-  {
-    id: 'lifestyle',
-    titleBn: '৪. শিশুর আনন্দময় স্বতঃস্ফূর্ত শিক্ষা (লাইফস্টাইল)',
-    titleEn: 'Child Joyfully Learning with the Talking Book',
-    filename: 'iqra_talking_book_child_learning.jpg',
-    url: '/images/iqra_talking_book_child_learning.jpg',
-    resolution: '1024 x 1024 px (HD Square)',
-    tag: 'লাইফস্টাইল ছবি',
-    description: 'হাস্যোজ্জ্বল শিশু নিজে নিজে স্মার্ট পেন দিয়ে স্পর্শ করে পড়ছে। মোবাইল আসক্তি দূর করে পড়ার প্রতি আগ্রহ সৃষ্টির বাস্তব দৃশ্য।',
-    adUsageTip: 'পিতামাতাদের আবেগী মনোযোগ আকর্ষণ ও উচ্চ রূপান্তর (Conversion) অর্জনের জন্য মোক্ষম।'
+    id: 'waterMagic',
+    titleBn: '৩. IQRA ওয়াটার ম্যাজিক বুক ও স্পেশাল পেন',
+    titleEn: 'IQRA Water Magic Book & Pens',
+    filename: 'water_magic_book.jpg',
+    url: '/images/water_magic_book.jpg',
+    resolution: '1000 x 1000 px (HD)',
+    tag: 'ম্যাজিক বুক',
+    description: 'পানি দিয়ে ছবি আঁকার পর কয়েক মিনিট পর শুকিয়ে গেলে আবার আগের মতো হয়ে যায়, বারবার ব্যবহারযোগ্য।',
+    adUsageTip: 'কালারফুল ড্রয়িং ও পেইন্টিং ফিচার তুলে ধরতে এই ছবি ব্যবহার করুন।'
   }
 ];
 

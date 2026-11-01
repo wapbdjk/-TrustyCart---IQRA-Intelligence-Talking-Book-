@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Package, Check, Gift } from 'lucide-react';
 import { STORE_CONFIG } from '../config/storeConfig.ts';
 
 export const PackageContents: React.FC = () => {
   const contents = STORE_CONFIG.product.packageContents;
+  const comboPhotos = [
+    { src: '/images/combo_full_package.jpg', label: '৫-ইন-১ সম্পূর্ণ কম্বো' },
+    { src: '/images/talking_book_with_lcd_tablet.jpg', label: 'টকিং বুক + ৮.৫" ট্যাবলেট' },
+    { src: '/images/water_magic_book.jpg', label: 'ওয়াটার ম্যাজিক বুক' }
+  ];
+  const [activePhoto, setActivePhoto] = useState(comboPhotos[0].src);
 
   return (
     <section id="package" className="py-14 sm:py-20 bg-[#FEFBF6] border-t border-amber-100">
@@ -26,22 +32,48 @@ export const PackageContents: React.FC = () => {
         {/* 2-Column Split: Authentic Flatlay Photo + Item Checklist */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Authentic Flatlay Packaging Photo */}
-          <div className="lg:col-span-6">
-            <div className="relative rounded-3xl overflow-hidden border-2 border-amber-200/90 shadow-md bg-white p-2">
+          {/* Authentic Combo Photos with Selector */}
+          <div className="lg:col-span-6 space-y-3">
+            <div className="relative rounded-3xl overflow-hidden border-2 border-amber-300 shadow-md bg-white p-2">
               <img
-                src={STORE_CONFIG.product.images.package}
-                alt="IQRA Intelligence Talking Book প্যাকেজের প্রকৃত সামগ্রী আনবক্সিং"
-                className="w-full h-auto object-cover rounded-2xl"
+                src={activePhoto}
+                alt="IQRA Intelligence Talking Book ৫-ইন-১ কম্বো প্যাক"
+                className="w-full h-auto object-cover rounded-2xl aspect-square"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute top-5 left-5 bg-white/95 backdrop-blur-xs px-3 py-1.5 rounded-lg text-xs font-bold text-slate-800 shadow-xs flex items-center gap-1.5 border border-slate-200/60">
                 <Gift className="w-4 h-4 text-amber-600" />
-                <span>উপহার দেওয়ার উপযোগী আকর্ষণীয় বক্স</span>
+                <span>আসল ৫-ইন-১ কম্বো সেট</span>
               </div>
             </div>
-            <p className="text-center text-xs text-slate-500 mt-2 font-medium">
-              * ছবিতে দৃশ্যমান সকল অনুষঙ্গ একই প্যাকেজের মধ্যে সুরক্ষিতভাবে সংযুক্ত
+
+            {/* 3 Real Photos Thumbnails */}
+            <div className="grid grid-cols-3 gap-2.5">
+              {comboPhotos.map((photo, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setActivePhoto(photo.src)}
+                  className={`p-1 rounded-xl border-2 transition-all cursor-pointer text-left ${
+                    activePhoto === photo.src 
+                      ? 'border-amber-500 ring-2 ring-amber-300/60 bg-amber-50' 
+                      : 'border-slate-200 bg-white hover:border-amber-300'
+                  }`}
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.label}
+                    className="w-full h-16 sm:h-20 object-cover rounded-lg"
+                  />
+                  <span className="block text-[11px] font-bold text-slate-700 mt-1 truncate px-1">
+                    {photo.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            <p className="text-center text-xs text-slate-500 font-medium">
+              * ছবিতে ক্লিক করে কম্বো প্যাকেজের প্রতিটি বাস্তব অংশ বড় করে দেখে নিন
             </p>
           </div>
 

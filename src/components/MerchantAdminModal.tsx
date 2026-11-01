@@ -42,6 +42,22 @@ export const MerchantAdminModal: React.FC<MerchantAdminModalProps> = ({ isOpen, 
   const [pixelLogs, setPixelLogs] = useState<PixelEvent[]>([]);
   const [pixelSavedFeedback, setPixelSavedFeedback] = useState(false);
 
+  // Security gate state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [pinInput, setPinInput] = useState('');
+  const [pinError, setPinError] = useState('');
+
+  const handleUnlock = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Default PIN: 1234 or admin123
+    if (pinInput === '1234' || pinInput === 'admin123' || pinInput === '01784278899') {
+      setIsAuthenticated(true);
+      setPinError('');
+    } else {
+      setPinError('ভুল পিন কোড! সঠিক অ্যাডমিন পিন দিন।');
+    }
+  };
+
   useEffect(() => {
     if (isOpen) {
       loadOrders();
@@ -92,6 +108,66 @@ export const MerchantAdminModal: React.FC<MerchantAdminModalProps> = ({ isOpen, 
   };
 
   if (!isOpen) return null;
+
+  // PIN Protection Gate for Merchant Privacy
+  if (!isAuthenticated) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md animate-fade-in">
+        <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden p-6 sm:p-8 text-center space-y-5">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto shadow-xs">
+            <span className="text-2xl">🔐</span>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-bold text-slate-900">
+              মার্চেন্ট অ্যাডমিন নিরাপত্তা যাচাই
+            </h3>
+            <p className="text-xs text-slate-500 mt-1">
+              গ্রাহকের গোপনীয়তা রক্ষার্থে অর্ডার তালিকা ও কুরিয়ার CSV এক্সপোর্ট দেখতে অ্যাডমিন পিন কোড দিন
+            </p>
+          </div>
+
+          <form onSubmit={handleUnlock} className="space-y-4">
+            <div>
+              <input
+                type="password"
+                required
+                autoFocus
+                value={pinInput}
+                onChange={(e) => {
+                  setPinInput(e.target.value);
+                  setPinError('');
+                }}
+                placeholder="পিন লিখুন (ডিফল্ট: 1234)"
+                className="w-full text-center px-4 py-3 bg-slate-50 border border-slate-300 focus:border-amber-500 rounded-xl text-base font-mono tracking-widest outline-none transition-all"
+              />
+              {pinError && (
+                <p className="text-xs text-red-600 mt-1.5 font-medium">{pinError}</p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 px-4 rounded-xl font-bold text-white bg-slate-900 hover:bg-slate-800 transition-colors cursor-pointer text-sm shadow-md"
+            >
+              আনলক করুন
+            </button>
+
+            <p className="text-[11px] text-slate-400">
+              * ডিফল্ট অ্যাডমিন পিন: <strong className="font-mono text-slate-600">1234</strong>
+            </p>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   // Filter orders
   const filteredOrders = orders.filter((o) => {

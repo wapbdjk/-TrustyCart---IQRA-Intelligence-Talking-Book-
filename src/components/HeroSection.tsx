@@ -49,10 +49,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
   const [customVideoUrl, setCustomVideoUrl] = useState<string>(STORE_CONFIG.product.video.videoUrl);
 
   const galleryImages = [
-    { src: STORE_CONFIG.product.images.hero, label: 'টকিং বুক ও পেন' },
-    { src: STORE_CONFIG.product.images.package, label: 'প্যাকেজ ও বক্স' },
-    { src: STORE_CONFIG.product.images.detail, label: 'সাউন্ড টাচ পেজ' },
-    { src: STORE_CONFIG.product.images.lifestyle, label: 'শিশুর আনন্দময় শিক্ষা' },
+    { src: '/images/combo_full_package.jpg', label: 'সম্পূর্ণ ৫-ইন-১ কম্বো প্যাক' },
+    { src: '/images/talking_book_with_lcd_tablet.jpg', label: 'টকিং বুক ও LCD রাইটিং ট্যাবলেট' },
+    { src: '/images/water_magic_book.jpg', label: 'IQRA ওয়াটার ম্যাজিক বুক' },
   ];
 
   const scrollToOrder = () => {
@@ -68,11 +67,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
 
   const hasRealWhatsApp = STORE_CONFIG.whatsappNumber && !STORE_CONFIG.whatsappNumber.includes('[');
   const whatsappUrl = hasRealWhatsApp
-    ? `https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent('আসসালামু আলাইকুম, আমি IQRA Intelligence Talking Book সম্পর্কে জানতে আগ্রহী।')}`
+    ? `https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent('আসসালামু আলাইকুম, আমি IQRA Intelligence Talking Book কম্বো সম্পর্কে জানতে আগ্রহী।')}`
     : '#contact';
 
   return (
-    <section className="relative overflow-hidden pt-6 pb-12 lg:pt-10 lg:pb-18 bg-gradient-to-b from-amber-50/50 via-[#FFFDF9] to-[#FFFDF9]">
+    <section className="relative overflow-hidden pt-6 pb-12 lg:pt-10 lg:pb-16 bg-gradient-to-b from-amber-50/50 via-[#FFFDF9] to-[#FFFDF9]">
       {/* Background ambient accents */}
       <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 left-0 -z-10 w-80 h-80 bg-blue-100/30 rounded-full blur-3xl pointer-events-none" />
@@ -83,7 +82,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
         <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-4">
           <span>এডুকেশনাল খেলনা ও বই</span>
           <span aria-hidden="true">·</span>
-          <span>ইলেকট্রনিক সাউন্ড লার্নিং</span>
+          <span>৫-ইন-১ কম্বো অফার</span>
           <span aria-hidden="true">·</span>
           <span className="text-amber-800 font-bold bg-amber-100/90 px-2 py-0.5 rounded-md border border-amber-300">
             টাইপ-সি রিচার্জেবল
@@ -94,7 +93,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
           </span>
           <span aria-hidden="true">·</span>
           <span className="text-blue-800 font-bold bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
-            ১ বছরের অফিসিয়াল ওয়ারেন্টি
+            পার্সেল দেখে নেওয়ার সুবিধা
           </span>
         </div>
 
@@ -106,7 +105,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
             {/* Child-friendly trust badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/80 text-amber-900 text-xs font-semibold">
               <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-              <span>বাংলা, ইংরেজি ও আরবি ৩টি ভাষার ডিজিটাল লার্নিং বুক</span>
+              <span>টকিং বুক + ৮.৫" LCD ট্যাবলেট + ওয়াটার ম্যাজিক বুক কম্বো</span>
             </div>
 
             {/* Mandatory Bengali Headline */}
@@ -116,26 +115,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
 
             {/* Mandatory Supporting text */}
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
-              IQRA Intelligence Talking Book সম্পর্কে জানুন। পণ্যের বৈশিষ্ট্য, প্যাকেজের উপকরণ ও ব্যবহারবিধি দেখে আপনার সন্তানের জন্য উপযুক্ত কি না যাচাই করুন।
+              IQRA ৫-ইন-১ কম্বো অফার: টকিং বুক, ৮.৫ ইঞ্চি কালারফুল রাইটিং ট্যাবলেট, ওয়াটার ম্যাজিক বুক, ২টি পেন ও চার্জিং ক্যাবল—সব পাবেন এক সাথে মাত্র ৯৯৯ টাকায়!
             </p>
 
             {/* Highlights */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
               <div className="flex items-start gap-2 text-sm text-slate-700">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                <span>৬৪ পৃষ্ঠার বিশাল ভাণ্ডার ও ১০০+ আকর্ষণীয় কনটেন্ট</span>
+                <span>৬৪ পৃষ্ঠার টকিং বুক (বাংলা, ইংরেজি ও আরবি অডিও)</span>
               </div>
               <div className="flex items-start gap-2 text-sm text-slate-700">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                <span>টাইপ-সি (Type-C) রিচার্জেবল (কোনো ব্যাটারি লাগে না)</span>
+                <span>৮.৫ ইঞ্চি LCD কালারফুল রাইটিং ট্যাবলেট (স্লেট)</span>
               </div>
               <div className="flex items-start gap-2 text-sm text-slate-700">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                <span>৩ ভাষায় বর্ণমালা, গণিত, গান, ছড়া ও স্মার্ট বোতাম</span>
+                <span>IQRA ওয়াটার ম্যাজিক বুক ও ২টি মার্কার পেন</span>
               </div>
               <div className="flex items-start gap-2 text-sm text-slate-700">
                 <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                <span>১ বছরের অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি</span>
+                <span>টাইপ-সি রিচার্জেবল (কোনো ব্যাটারি লাগে না)</span>
               </div>
             </div>
 
@@ -320,7 +319,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
 
             {/* Thumbnail switcher */}
             {activeMedia === 'image' ? (
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-3 gap-2">
                 {galleryImages.map((img, idx) => (
                   <button
                     key={idx}
@@ -347,7 +346,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
               </p>
             )}
 
-            {/* Quick Action to open HD Images Gallery & Download Modal */}
+            {/* Quick Action to open HD Images Gallery */}
             <button
               type="button"
               onClick={() => {
@@ -357,7 +356,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
               className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-amber-50 hover:bg-amber-100/90 border border-amber-300 text-amber-900 text-xs font-bold transition-all shadow-xs active:scale-[0.99] cursor-pointer"
             >
               <ImageIcon className="w-4 h-4 text-amber-600" />
-              <span>📸 আসল ৪টি HD ছবি দেখুন ও ডাউনলোড করুন (বিজ্ঞাপন উপযোগী)</span>
+              <span>📸 আসল ৩টি প্রোডাক্টের ছবি বড় করে দেখুন</span>
             </button>
 
             <p className="text-center text-xs text-slate-500">

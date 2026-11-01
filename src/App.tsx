@@ -2,13 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header.tsx';
 import { HeroSection } from './components/HeroSection.tsx';
 import { VideoSection } from './components/VideoSection.tsx';
-import { InsideBookSection } from './components/InsideBookSection.tsx';
-import { SmartButtonsSection } from './components/SmartButtonsSection.tsx';
-import { InteractiveAudioDemo } from './components/InteractiveAudioDemo.tsx';
-import { ProductFeatures } from './components/ProductFeatures.tsx';
 import { PackageContents } from './components/PackageContents.tsx';
-import { HowToUse } from './components/HowToUse.tsx';
-import { CustomerReviews } from './components/CustomerReviews.tsx';
 import { PricingSection } from './components/PricingSection.tsx';
 import { OrderForm } from './components/OrderForm.tsx';
 import { TrustAndPolicies } from './components/TrustAndPolicies.tsx';
@@ -73,43 +67,21 @@ export default function App() {
       />
 
       <main className="flex-1">
-        {/* 1. Hero Section (Headline, Media, Pricing, 1-Year Warranty & Free Delivery Badges) */}
+        {/* ১. মূল ছবি/ভিডিও: হিরো সেকশন এবং লাইভ ভিডিও প্রদর্শন */}
         <HeroSection onOpenGallery={handleOpenGallery} />
-
-        {/* 2. Front Page Featured Video Showcase (Live YouTube Shorts Video Review & Demonstration) */}
         <VideoSection />
 
-        {/* 3. Inside The Book (64 Pages, 100+ Content) & 5 Skill Developments */}
-        <InsideBookSection />
-
-        {/* 3. 4 Smart Interactive Buttons (Recording, Question, Read, Volume) & Technical Specs */}
-        <SmartButtonsSection />
-
-        {/* 4. Interactive Audio Simulator / Phonics Sound Demo */}
-        <InteractiveAudioDemo />
-
-        {/* 5. Product Features & Verified Specifications Table */}
-        <ProductFeatures />
-
-        {/* 6. Package Contents & Unboxing Checklist (64 pages, touch pen, marker, type-C, warranty card) */}
+        {/* ২. কম্বোতে যা পাবেন: ৫-ইন-১ কম্বো প্যাকের আনবক্সিং ও আইটেম তালিকা */}
         <PackageContents />
 
-        {/* 7. How To Use Step-by-Step Guide */}
-        <HowToUse />
-
-        {/* 8. Authentic Customer Reviews & Ratings (4.9/5 from 480+ parents) */}
-        <CustomerReviews />
-
-        {/* 9. Pricing & Delivery Charges Breakdown (৳999, Free Delivery, 1-Year Warranty) */}
+        {/* ৩. দাম: মূল্য ও ফ্রি ডেলিভারি বিবরণ */}
         <PricingSection onScrollToOrder={scrollToOrder} />
 
-        {/* 10. Bengali Order Form (Cash on Delivery) */}
+        {/* ৪. অর্ডার ফর্ম: ৩টি ফিল্ডের দ্রুত ক্যাশ অন ডেলিভারি ফর্ম */}
         <OrderForm onOrderSuccess={handleOrderSuccess} />
 
-        {/* 11. Trust & Policies (COD, 1-Year Replacement Warranty Policy, Customer Care) */}
+        {/* ৫. শর্ত ও প্রশ্নোত্তর: ডেলিভারি ও যাচাই শর্তাবলী এবং প্রয়োজনীয় প্রশ্নোত্তর */}
         <TrustAndPolicies />
-
-        {/* 12. Frequently Asked Questions (FAQ) */}
         <FAQSection />
       </main>
 

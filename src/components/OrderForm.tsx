@@ -117,7 +117,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
         netlifyData.append('deliveryFee', 'ফ্রি (৳০)');
         netlifyData.append('totalAmount', `৳${totalAmount}`);
         netlifyData.append('paymentMethod', 'Cash on Delivery');
-        netlifyData.append('warranty', '১ বছরের অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি');
+        netlifyData.append('package', '৫-ইন-১ সম্পূর্ণ কম্বো অফার');
 
         await fetch('/', {
           method: 'POST',
@@ -163,7 +163,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
         <div className="text-center max-w-2xl mx-auto mb-8 space-y-2.5">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold">
             <ShoppingBag className="w-3.5 h-3.5 text-emerald-700" />
-            <span>সারা বাংলাদেশে ফ্রি ডেলিভারি · ক্যাশ অন ডেলিভারি</span>
+            <span>সারা বাংলাদেশে ফ্রি হোম ডেলিভারি · ক্যাশ অন ডেলিভারি</span>
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight text-balance">
             অর্ডার করতে নিচের তথ্যগুলো পূরণ করুন
@@ -190,7 +190,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
               <input type="hidden" name="quantity" value={quantity} />
               <input type="hidden" name="totalAmount" value={`৳${totalAmount}`} />
               <input type="hidden" name="paymentMethod" value="Cash on Delivery" />
-              <input type="hidden" name="warranty" value="১ বছরের অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি" />
+              <input type="hidden" name="package" value="৫-ইন-১ সম্পূর্ণ কম্বো অফার" />
               <div className="hidden" aria-hidden="true">
                 <label>Don’t fill this out: <input name="bot-field" tabIndex={-1} autoComplete="off" /></label>
               </div>
@@ -346,7 +346,7 @@ export const OrderForm: React.FC<OrderFormProps> = ({ onOrderSuccess }) => {
                   </div>
                   <div className="text-blue-800 font-medium flex items-center gap-1.5">
                     <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
-                    <span>ওয়ারেন্টি: ১ বছরের অফিসিয়াল রিপ্লেসমেন্ট সুবিধা ও টাইপ-সি রিচার্জেবল সিস্টেম</span>
+                    <span>সুবিধা: টাইপ-সি রিচার্জেবল সিস্টেম (কোনো ব্যাটারি লাগে না) ও ৫-ইন-১ কম্বো</span>
                   </div>
                 </div>
               </div>

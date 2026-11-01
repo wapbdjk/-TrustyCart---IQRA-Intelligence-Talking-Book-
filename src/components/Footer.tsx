@@ -1,4 +1,5 @@
-import { Phone, Mail, MapPin, Clock, ShieldCheck, Settings, FileCode, Image as ImageIcon } from 'lucide-react';
+import React from 'react';
+import { Phone, Mail, MapPin, Clock, ShieldCheck } from 'lucide-react';
 import { STORE_CONFIG } from '../config/storeConfig.ts';
 
 interface FooterProps {
@@ -73,47 +74,45 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, onOpenGuide, onOpen
             </ul>
           </div>
 
-          {/* Quick Business Tools & Policy */}
+          {/* Customer Service & Policies */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">
-              ব্যবসা ও মার্চেন্ট প্যানেল
+              আমাদের অঙ্গীকার
             </h4>
             
-            <div className="space-y-2 text-xs text-slate-400">
-              <button
-                onClick={onOpenAdmin}
-                className="w-full flex items-center gap-2 p-2.5 rounded-lg bg-slate-800/90 hover:bg-slate-800 text-slate-200 hover:text-white transition-colors text-left cursor-pointer border border-slate-700/60"
-              >
-                <Settings className="w-4 h-4 text-amber-500 shrink-0" />
-                <span>অর্ডার তালিকা ও কুরিয়ার CSV এক্সপোর্ট</span>
-              </button>
-
-              <button
-                onClick={onOpenGuide}
-                className="w-full flex items-center gap-2 p-2.5 rounded-lg bg-slate-800/90 hover:bg-slate-800 text-slate-200 hover:text-white transition-colors text-left cursor-pointer border border-slate-700/60"
-              >
-                <FileCode className="w-4 h-4 text-amber-500 shrink-0" />
-                <span>Netlify ডিপ্লয় ও Ads গাইড</span>
-              </button>
-
-              {onOpenGallery && (
-                <button
-                  onClick={onOpenGallery}
-                  className="w-full flex items-center gap-2 p-2.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 hover:text-amber-200 transition-colors text-left cursor-pointer border border-amber-500/30"
-                >
-                  <ImageIcon className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>বিজ্ঞাপন ও ফেসবুক পোস্টের HD ছবি</span>
-                </button>
-              )}
-            </div>
+            <ul className="space-y-2 text-xs text-slate-400">
+              <li className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>১০০% ক্যাশ অন ডেলিভারি সুবিধা</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>সারা বাংলাদেশে সম্পূর্ণ ফ্রি হোম ডেলিভারি</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>পার্সেল হাতে পেয়ে চেক করে পেমেন্ট</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>কোনো অগ্রিম পেমেন্টের প্রয়োজন নেই</span>
+              </li>
+            </ul>
           </div>
 
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <div>
-            © {new Date().getFullYear()} TrustyCart. সর্বস্বত্ব সংরক্ষিত।
+          <div className="flex items-center gap-3">
+            <span>© {new Date().getFullYear()} TrustyCart. সর্বস্বত্ব সংরক্ষিত।</span>
+            <button
+              onClick={onOpenAdmin}
+              className="text-slate-600 hover:text-slate-400 transition-colors cursor-pointer text-[11px] flex items-center gap-1"
+              title="মার্চেন্ট অ্যাডমিন লগইন"
+            >
+              <span>🔐 অ্যাডমিন</span>
+            </button>
           </div>
 
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
@@ -121,7 +120,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, onOpenGuide, onOpen
             <span aria-hidden="true">·</span>
             <span>সারা দেশে ফ্রি ডেলিভারি</span>
             <span aria-hidden="true">·</span>
-            <span className="text-amber-400 font-semibold">১ বছরের অফিসিয়াল ওয়ারেন্টি</span>
+            <span className="text-emerald-400 font-semibold">পার্সেল দেখে পেমেন্ট</span>
             <span aria-hidden="true">·</span>
             <span>নিরাপদ কেনাকাটা</span>
           </div>
