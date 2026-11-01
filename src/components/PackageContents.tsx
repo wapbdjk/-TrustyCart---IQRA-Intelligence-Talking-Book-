@@ -1,63 +1,84 @@
 import React, { useState } from 'react';
-import { Package, Check, Gift } from 'lucide-react';
-import { STORE_CONFIG } from '../config/storeConfig.ts';
+import { Package, Check, Sparkles } from 'lucide-react';
 
 export const PackageContents: React.FC = () => {
-  const contents = STORE_CONFIG.product.packageContents;
   const comboPhotos = [
-    { src: '/images/combo_full_package.jpg', label: '৫-ইন-১ সম্পূর্ণ কম্বো' },
-    { src: '/images/talking_book_with_lcd_tablet.jpg', label: 'টকিং বুক + ৮.৫" ট্যাবলেট' },
-    { src: '/images/water_magic_book.jpg', label: 'ওয়াটার ম্যাজিক বুক' }
+    { src: '/images/combo_full_package.jpg', label: '৫-ইন-১ সম্পূর্ণ কম্বো সেট' },
+    { src: '/images/talking_book_with_lcd_tablet.jpg', label: 'টকিং বুক ও ৮.৫" ট্যাবলেট' },
+    { src: '/images/water_magic_book.jpg', label: 'ওয়াটার ম্যাজিক বুক ও কলম' }
   ];
   const [activePhoto, setActivePhoto] = useState(comboPhotos[0].src);
 
+  const items = [
+    {
+      num: '১',
+      title: 'IQRA Intelligence Talking Book',
+      desc: 'বাংলা, ইংরেজি ও আরবি ভাষার অডিও সাউন্ড এবং টাচ বোতাম বিশিষ্ট ৬৪ পৃষ্ঠার মূল বই।'
+    },
+    {
+      num: '২',
+      title: '৮.৫ ইঞ্চি LCD কালারফুল রাইটিং ট্যাবলেট',
+      desc: 'বাচ্চার লেখা ও আঁকাআঁকি অনুশীলনের জন্য রি-ইউজেবল ডিজিটাল স্লেট (ইরেজ বোতাম সহ)।'
+    },
+    {
+      num: '৩',
+      title: 'IQRA ওয়াটার ম্যাজিক বুক',
+      desc: 'পানির সংস্পর্শে রঙ ফুটে ওঠা ম্যাজিক ড্রয়িং বুক, যা শুকিয়ে গেলে নিজে নিজেই পরিষ্কার হয়ে যায়।'
+    },
+    {
+      num: '৪',
+      title: '২টি স্পেশাল পেন ও মার্কার',
+      desc: 'টকিং বই স্পর্শ করার বিশেষ কলম এবং ওয়াটার ম্যাজিক বুকের জন্য বিশেষ পানির পেন।'
+    },
+    {
+      num: '৫',
+      title: 'ইউএসবি চার্জিং ক্যাবল',
+      desc: 'সহজে রিচার্জ করার উপযোগী ক্যাবল (সাধারণ মোবাইল চার্জারেই চার্জ করা যায়)।'
+    }
+  ];
+
   return (
-    <section id="package" className="py-14 sm:py-20 bg-[#FEFBF6] border-t border-amber-100">
+    <section id="package" className="py-12 sm:py-16 bg-slate-50/50 border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-semibold">
-            <Package className="w-3.5 h-3.5 text-amber-600" />
-            <span>অরিজিনাল প্যাকেজ আনবক্সিং</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight text-balance">
-            অর্ডার করলে প্যাকেজের সাথে আপনি যা যা পাবেন
+        <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-700">
+            প্যাকেজ বিবরণী
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight text-balance">
+            প্যাকেজে আপনি ঠিক যা যা পাবেন
           </h2>
           <p className="text-sm sm:text-base text-slate-600">
-            প্রতিটি বক্স ফ্যাক্টরি সিল করা অবস্থায় পৌঁছাবে। ভেতরের প্রতিটি আইটেম নিচে বিস্তারিত দেওয়া হলো:
+            প্রতিটি অর্ডার নিখুঁতভাবে চেক করে সিল করা বক্সে পাঠানো হয়। নিচে প্যাকেজের ৫টি সামগ্রীর তালিকা:
           </p>
         </div>
 
-        {/* 2-Column Split: Authentic Flatlay Photo + Item Checklist */}
+        {/* 2-Column Showcase */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Authentic Combo Photos with Selector */}
+          {/* Left: Product Image with thumbnail selector */}
           <div className="lg:col-span-6 space-y-3">
-            <div className="relative rounded-3xl overflow-hidden border-2 border-amber-300 shadow-md bg-white p-2">
+            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs p-2">
               <img
                 src={activePhoto}
-                alt="IQRA Intelligence Talking Book ৫-ইন-১ কম্বো প্যাক"
-                className="w-full h-auto object-cover rounded-2xl aspect-square"
+                alt="IQRA Talking Book ৫-ইন-১ কম্বো সেট"
+                className="w-full h-auto object-cover rounded-xl aspect-square"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute top-5 left-5 bg-white/95 backdrop-blur-xs px-3 py-1.5 rounded-lg text-xs font-bold text-slate-800 shadow-xs flex items-center gap-1.5 border border-slate-200/60">
-                <Gift className="w-4 h-4 text-amber-600" />
-                <span>আসল ৫-ইন-১ কম্বো সেট</span>
-              </div>
             </div>
 
-            {/* 3 Real Photos Thumbnails */}
-            <div className="grid grid-cols-3 gap-2.5">
+            {/* Thumbnail switcher */}
+            <div className="grid grid-cols-3 gap-2">
               {comboPhotos.map((photo, i) => (
                 <button
                   key={i}
                   type="button"
                   onClick={() => setActivePhoto(photo.src)}
-                  className={`p-1 rounded-xl border-2 transition-all cursor-pointer text-left ${
+                  className={`p-1 rounded-xl border text-left transition-colors cursor-pointer bg-white ${
                     activePhoto === photo.src 
-                      ? 'border-amber-500 ring-2 ring-amber-300/60 bg-amber-50' 
-                      : 'border-slate-200 bg-white hover:border-amber-300'
+                      ? 'border-blue-600 ring-2 ring-blue-100' 
+                      : 'border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   <img
@@ -65,50 +86,38 @@ export const PackageContents: React.FC = () => {
                     alt={photo.label}
                     className="w-full h-16 sm:h-20 object-cover rounded-lg"
                   />
-                  <span className="block text-[11px] font-bold text-slate-700 mt-1 truncate px-1">
+                  <span className="block text-[11px] font-semibold text-slate-700 mt-1 truncate px-0.5">
                     {photo.label}
                   </span>
                 </button>
               ))}
             </div>
-
-            <p className="text-center text-xs text-slate-500 font-medium">
-              * ছবিতে ক্লিক করে কম্বো প্যাকেজের প্রতিটি বাস্তব অংশ বড় করে দেখে নিন
-            </p>
           </div>
 
-          {/* Item Checklist */}
-          <div className="lg:col-span-6 space-y-4">
-            <div className="space-y-3.5">
-              {contents.map((item, index) => (
-                <div 
-                  key={item.id} 
-                  className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-amber-100 shadow-xs hover:border-amber-300 transition-colors"
-                >
-                  <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center shrink-0 text-sm font-ui">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-slate-900">
-                      {item.titleBn}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
-                      {item.descBn}
-                    </p>
-                  </div>
+          {/* Right: 5 Items Checklist */}
+          <div className="lg:col-span-6 space-y-3.5">
+            {items.map((item, index) => (
+              <div 
+                key={index}
+                className="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 shadow-xs"
+              >
+                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 font-bold flex items-center justify-center shrink-0 text-sm font-ui border border-blue-100">
+                  {item.num}
                 </div>
-              ))}
-            </div>
+                <div>
+                  <h3 className="text-base font-bold text-slate-900">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
 
-            {/* Note on Type-C Charging */}
-            <div className="p-4 rounded-xl bg-emerald-50/80 border border-emerald-200 text-xs text-emerald-950 leading-relaxed space-y-1">
-              <p className="font-semibold flex items-center gap-1.5 text-emerald-800">
-                <Check className="w-4 h-4 text-emerald-600" />
-                <span>চার্জিং ও ব্যাটারি সুবিধা:</span>
-              </p>
-              <p className="text-slate-700">
-                এই বইটিতে কোনো আলাদা ব্যাটারি ব্যবহার করতে হয় না। সাধারণ টাইপ-সি (Type-C) মোবাইল চার্জার দিয়ে চার্জ দিলেই এটি অনায়াসে দীর্ঘ সময় চলে। ফলে বারবার পেন্সিল ব্যাটারি কেনার কোনো বাড়তি ঝামেলা বা খরচ নেই!
-              </p>
+            <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-center gap-2">
+              <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>ডেলিভারির সময় পার্সেল খুলে ভেতরের এই ৫টি আইটেম দেখে নিশ্চিত হয়ে টাকা পরিশোধ করবেন।</span>
             </div>
           </div>
 

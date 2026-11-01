@@ -2,36 +2,32 @@ import React, { useState } from 'react';
 import { 
   ArrowDown, 
   CheckCircle2, 
-  ShieldCheck, 
   Truck, 
-  Sparkles, 
+  ShieldCheck,
   MessageCircle, 
   Play, 
-  Film, 
   Image as ImageIcon,
-  AlertCircle
+  BatteryCharging,
+  Layers,
+  Sparkles
 } from 'lucide-react';
 import { STORE_CONFIG } from '../config/storeConfig.ts';
 import { formatTaka } from '../services/orderService.ts';
 
 function getYouTubeEmbedUrl(url: string): string {
   if (!url) return '';
-  // Check YouTube Shorts format: youtube.com/shorts/VIDEO_ID
   const shortsMatch = url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/);
   if (shortsMatch && shortsMatch[1]) {
     return `https://www.youtube.com/embed/${shortsMatch[1]}`;
   }
-  // Check YouTube Watch format: youtube.com/watch?v=VIDEO_ID
   const watchMatch = url.match(/youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/);
   if (watchMatch && watchMatch[1]) {
     return `https://www.youtube.com/embed/${watchMatch[1]}`;
   }
-  // Check short URL format: youtu.be/VIDEO_ID
   const youtuBeMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
   if (youtuBeMatch && youtuBeMatch[1]) {
     return `https://www.youtube.com/embed/${youtuBeMatch[1]}`;
   }
-  // If already embed URL
   if (url.includes('youtube.com/embed/')) {
     return url;
   }
@@ -43,15 +39,13 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
-  // Default to 'video' so visitors immediately see the video on the front page
-  const [activeMedia, setActiveMedia] = useState<'image' | 'video'>('video');
-  const [activeImage, setActiveImage] = useState<string>(STORE_CONFIG.product.images.hero);
-  const [customVideoUrl, setCustomVideoUrl] = useState<string>(STORE_CONFIG.product.video.videoUrl);
+  const [activeMedia, setActiveMedia] = useState<'image' | 'video'>('image');
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   const galleryImages = [
-    { src: '/images/combo_full_package.jpg', label: 'সম্পূর্ণ ৫-ইন-১ কম্বো প্যাক' },
-    { src: '/images/talking_book_with_lcd_tablet.jpg', label: 'টকিং বুক ও LCD রাইটিং ট্যাবলেট' },
-    { src: '/images/water_magic_book.jpg', label: 'IQRA ওয়াটার ম্যাজিক বুক' },
+    { src: '/images/combo_full_package.jpg', label: '৫-ইন-১ সম্পূর্ণ কম্বো সেট' },
+    { src: '/images/talking_book_with_lcd_tablet.jpg', label: 'টকিং বুক ও ৮.৫" LCD স্লেট' },
+    { src: '/images/water_magic_book.jpg', label: 'ওয়াটার ম্যাজিক বুক ও পেন' },
   ];
 
   const scrollToOrder = () => {
@@ -67,268 +61,200 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
 
   const hasRealWhatsApp = STORE_CONFIG.whatsappNumber && !STORE_CONFIG.whatsappNumber.includes('[');
   const whatsappUrl = hasRealWhatsApp
-    ? `https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent('আসসালামু আলাইকুম, আমি IQRA Intelligence Talking Book কম্বো সম্পর্কে জানতে আগ্রহী।')}`
+    ? `https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent('আসসালামু আলাইকুম, আমি IQRA Intelligence Talking Book কম্বো প্যাক সম্পর্কে জানতে আগ্রহী।')}`
     : '#contact';
 
-  return (
-    <section className="relative overflow-hidden pt-6 pb-12 lg:pt-10 lg:pb-16 bg-gradient-to-b from-amber-50/50 via-[#FFFDF9] to-[#FFFDF9]">
-      {/* Background ambient accents */}
-      <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-0 -z-10 w-80 h-80 bg-blue-100/30 rounded-full blur-3xl pointer-events-none" />
+  const embedVideoUrl = getYouTubeEmbedUrl(STORE_CONFIG.product.video.videoUrl);
 
+  return (
+    <section className="bg-white border-b border-slate-100 pt-8 pb-12 sm:pt-12 sm:pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Top category & Free delivery indicator */}
-        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-4">
-          <span>এডুকেশনাল খেলনা ও বই</span>
+        {/* Unboxed Metadata & Category Bar */}
+        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-5">
+          <span className="font-semibold text-blue-700">শিশুদের শিক্ষামূলক কম্বো</span>
           <span aria-hidden="true">·</span>
-          <span>৫-ইন-১ কম্বো অফার</span>
+          <span>বাংলা, ইংরেজি ও আরবি অডিও</span>
           <span aria-hidden="true">·</span>
-          <span className="text-amber-800 font-bold bg-amber-100/90 px-2 py-0.5 rounded-md border border-amber-300">
-            টাইপ-সি রিচার্জেবল
-          </span>
-          <span aria-hidden="true">·</span>
-          <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-            সারা বাংলাদেশে ফ্রি ডেলিভারি (৳০)
-          </span>
-          <span aria-hidden="true">·</span>
-          <span className="text-blue-800 font-bold bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
-            পার্সেল দেখে নেওয়ার সুবিধা
-          </span>
+          <span className="text-emerald-700 font-semibold">সারা দেশে ফ্রি হোম ডেলিভারি</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Column: Headline, Description, Free Delivery & Price */}
-          <div className="lg:col-span-7 space-y-5">
+          {/* Left Column: Product Name, Benefits, Price & Order Action */}
+          <div className="lg:col-span-7 space-y-6">
             
-            {/* Child-friendly trust badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/80 text-amber-900 text-xs font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-              <span>টকিং বুক + ৮.৫" LCD ট্যাবলেট + ওয়াটার ম্যাজিক বুক কম্বো</span>
+            {/* Tagline kicker */}
+            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-900 bg-blue-50 px-3 py-1 rounded-md border border-blue-100">
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <span>IQRA ইন্টেলিজেন্ট টকিং বুক ৫-ইন-১ কম্বো প্যাক</span>
             </div>
 
-            {/* Mandatory Bengali Headline */}
+            {/* Product Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-[1.25] text-balance">
-              শিশুর শেখার আনন্দ হোক <span className="text-amber-600 underline decoration-amber-300 decoration-wavy decoration-2">আরও আকর্ষণীয়</span>
+              শিশুর মুখে স্পষ্ট উচ্চারণ ও আনন্দের সাথে শেখার{' '}
+              <span className="text-blue-700">ডিজিটাল মাধ্যম</span>
             </h1>
 
-            {/* Mandatory Supporting text */}
+            {/* Short benefit copy */}
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
-              IQRA ৫-ইন-১ কম্বো অফার: টকিং বুক, ৮.৫ ইঞ্চি কালারফুল রাইটিং ট্যাবলেট, ওয়াটার ম্যাজিক বুক, ২টি পেন ও চার্জিং ক্যাবল—সব পাবেন এক সাথে মাত্র ৯৯৯ টাকায়!
+              বইয়ের পাতায় স্পর্শ করলেই মিষ্টি কণ্ঠে শব্দ বেজে ওঠে। সাথে পাচ্ছেন ৮.৫ ইঞ্চি LCD কালারফুল রাইটিং ট্যাবলেট ও রি-ইউজেবল ওয়াটার ম্যাজিক বুক।
             </p>
 
-            {/* Highlights */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-              <div className="flex items-start gap-2 text-sm text-slate-700">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                <span>৬৪ পৃষ্ঠার টকিং বুক (বাংলা, ইংরেজি ও আরবি অডিও)</span>
+            {/* 4 Core Quick Bullet Benefits */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              <div className="flex items-start gap-2.5 text-sm text-slate-700">
+                <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                <span>৩টি ভাষার অডিও (বাংলা, ইংরেজি ও আরবি)</span>
               </div>
-              <div className="flex items-start gap-2 text-sm text-slate-700">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                <span>৮.৫ ইঞ্চি LCD কালারফুল রাইটিং ট্যাবলেট (স্লেট)</span>
-              </div>
-              <div className="flex items-start gap-2 text-sm text-slate-700">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                <span>IQRA ওয়াটার ম্যাজিক বুক ও ২টি মার্কার পেন</span>
-              </div>
-              <div className="flex items-start gap-2 text-sm text-slate-700">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+              <div className="flex items-start gap-2.5 text-sm text-slate-700">
+                <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
                 <span>টাইপ-সি রিচার্জেবল (কোনো ব্যাটারি লাগে না)</span>
+              </div>
+              <div className="flex items-start gap-2.5 text-sm text-slate-700">
+                <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                <span>৮.৫" LCD কালারফুল ড্রয়িং ও রাইটিং স্লেট</span>
+              </div>
+              <div className="flex items-start gap-2.5 text-sm text-slate-700">
+                <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                <span>IQRA ওয়াটার ম্যাজিক বুক ও ২ টি বিশেষ পেন</span>
               </div>
             </div>
 
-            {/* Pricing Box & 100% Free Delivery Information */}
-            <div className="p-5 sm:p-6 bg-white rounded-2xl border-2 border-amber-300 shadow-sm space-y-4">
+            {/* Actual Price & Purchase Box */}
+            <div className="p-5 sm:p-6 bg-slate-50/70 rounded-2xl border border-slate-200 space-y-4">
               
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <div className="flex items-baseline gap-3">
-                  <span className="text-3xl sm:text-4xl font-extrabold text-amber-600 font-ui tabular-nums">
+                  <span className="text-3xl sm:text-4xl font-black text-blue-700 font-ui tabular-nums">
                     {formatTaka(currentPrice)}
                   </span>
                   <span className="text-base sm:text-lg text-slate-400 line-through font-ui tabular-nums">
                     {formatTaka(regularPrice)}
                   </span>
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800">
+                  <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200">
                     সাশ্রয় {formatTaka(savings)}
                   </span>
                 </div>
 
-                {/* Free Delivery Callout */}
-                <div className="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200 flex items-center gap-1.5">
+                <div className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 flex items-center gap-1.5">
                   <Truck className="w-4 h-4 text-emerald-600" />
-                  <span>সারা বাংলাদেশে ফ্রি ডেলিভারি (চার্জ: ৳০)</span>
+                  <span>সারা দেশে ফ্রি হোম ডেলিভারি (৳০)</span>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-1">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={scrollToOrder}
-                  className="flex-1 flex items-center justify-center gap-2.5 px-7 py-3.5 text-base font-bold text-white bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.99] cursor-pointer"
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-4 text-base font-bold text-white bg-blue-600 hover:bg-blue-700 active:scale-[0.99] rounded-xl shadow-sm transition-all cursor-pointer"
                 >
                   <span>এখনই অর্ডার করুন</span>
-                  <ArrowDown className="w-5 h-5" />
+                  <ArrowDown className="w-5 h-5 text-amber-300" />
                 </button>
 
-                {hasRealWhatsApp ? (
+                {hasRealWhatsApp && (
                   <a
                     href={whatsappUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 rounded-xl border border-emerald-200 transition-colors"
+                    className="flex items-center justify-center gap-2 px-5 py-4 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-100 rounded-xl border border-slate-300 transition-colors"
                   >
                     <MessageCircle className="w-4 h-4 text-emerald-600" />
-                    <span>হোয়াটসঅ্যাপে প্রশ্ন করুন</span>
+                    <span>হোয়াটসঅ্যাপে কথা বলুন</span>
                   </a>
-                ) : (
-                  <div className="flex items-center justify-center gap-2 px-4 py-3 text-xs text-slate-600 bg-slate-100 rounded-xl border border-slate-200">
-                    <MessageCircle className="w-4 h-4 text-slate-400" />
-                    <span>হোয়াটসঅ্যাপ: <strong className="font-mono text-slate-700">[YOUR PHONE NUMBER]</strong></span>
-                  </div>
                 )}
               </div>
 
-              {/* Delivery and COD note */}
-              <div className="flex items-center gap-2 pt-1 text-xs text-slate-600">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>ক্যাশ অন ডেলিভারি — পার্সেল হাতে পেয়ে ডেলিভারিম্যানের সামনে দেখে মূল্য পরিশোধ করুন।</span>
+              {/* Cash on Delivery & Inspection Notice */}
+              <div className="flex items-center gap-2 text-xs text-slate-600 pt-1">
+                <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
+                <span>১০০% ক্যাশ অন ডেলিভারি — পার্সেল হাতে পেয়ে ডেলিভারিম্যানের সামনে চেক করে মূল্য দিন।</span>
               </div>
-            </div>
-
-            {/* Responsible Parent Disclaimer */}
-            <div className="text-[12px] text-slate-500 bg-slate-50/80 p-3 rounded-lg border border-slate-200/60 leading-relaxed">
-              <strong className="text-slate-700 font-medium">দায়িত্বশীল অভিভাবক নোট:</strong> এই বইটি শিশুর কৌতূহল, ভাষা পরিচিতি ও খেলার ছলে শেখার আগ্রহ বাড়াতে একটি আধুনিক অডিও-ভিজ্যুয়াল মাধ্যম। এটি শিশুর তাৎক্ষণিক অলৌকিক মেধা বা শ্রেণিকক্ষে গ্যারান্টিড ফলাফলের প্রতিশ্রুতি দেয় না।
             </div>
 
           </div>
 
-          {/* Right Column: Product Photo & Video Showcase */}
+          {/* Right Column: Clean Media Showcase (Images & Video) */}
           <div className="lg:col-span-5 space-y-3">
             
-            {/* Photo vs Video Switcher Tabs */}
-            <div className="flex items-center justify-between p-1 bg-amber-100/60 rounded-xl border border-amber-200">
+            {/* View Mode Toggle */}
+            <div className="flex items-center p-1 bg-slate-100 rounded-xl">
               <button
                 type="button"
                 onClick={() => setActiveMedia('image')}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold rounded-lg transition-colors cursor-pointer ${
                   activeMedia === 'image'
-                    ? 'bg-white text-slate-900 shadow-xs'
+                    ? 'bg-white text-blue-700 shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <ImageIcon className="w-3.5 h-3.5 text-amber-600" />
-                <span>পণ্যের ছবি গ্যালারি</span>
+                <ImageIcon className="w-3.5 h-3.5" />
+                <span>প্রোডাক্টের আসল ছবি</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveMedia('video')}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold rounded-lg transition-colors cursor-pointer ${
                   activeMedia === 'video'
-                    ? 'bg-white text-slate-900 shadow-xs'
+                    ? 'bg-white text-blue-700 shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <Film className="w-3.5 h-3.5 text-amber-600" />
-                <span>প্রোডাক্ট ভিডিও রিভিউ</span>
+                <Play className="w-3.5 h-3.5" />
+                <span>ভিডিও রিভিউ</span>
               </button>
             </div>
 
-            {/* Media Display Area */}
-            <div className={`relative group bg-white p-2.5 rounded-2xl border border-amber-200 shadow-md overflow-hidden flex items-center justify-center transition-all ${
-              activeMedia === 'video' ? 'h-[480px] sm:h-[500px] w-full' : 'aspect-4/3'
-            }`}>
+            {/* Media Frame */}
+            <div className="relative bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm aspect-4/3 flex items-center justify-center">
               {activeMedia === 'image' ? (
                 <div 
-                  className="relative w-full h-full cursor-zoom-in group"
-                  onClick={() => {
-                    const idx = galleryImages.findIndex(img => img.src === activeImage);
-                    onOpenGallery?.(idx >= 0 ? idx : 0);
-                  }}
-                  title="বড় করে দেখতে ও ডাউনলোড করতে ক্লিক করুন"
+                  className="w-full h-full cursor-pointer relative group"
+                  onClick={() => onOpenGallery?.(activeImageIndex)}
+                  title="বড় করে দেখতে ক্লিক করুন"
                 >
                   <img
-                    src={activeImage}
-                    alt="IQRA Intelligence Talking Book - আসল প্রোডাক্টের ছবি"
-                    className="w-full h-full object-cover rounded-xl transition-all duration-300 group-hover:scale-[1.02]"
+                    src={galleryImages[activeImageIndex].src}
+                    alt={galleryImages[activeImageIndex].label}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-102"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-md text-[11px] font-semibold text-slate-800 shadow-xs border border-slate-200/50">
-                    আসল ছবি (Authentic Product)
-                  </div>
-                  <div className="absolute bottom-4 right-4 bg-slate-900/80 hover:bg-slate-900 backdrop-blur-xs text-white text-[11px] font-medium px-3 py-1.5 rounded-lg shadow-md flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity">
-                    <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
-                    <span>বড় করে দেখুন ও ডাউনলোড</span>
+                  <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-md text-[11px] font-semibold text-slate-800 border border-slate-200 shadow-xs">
+                    {galleryImages[activeImageIndex].label}
                   </div>
                 </div>
               ) : (
-                /* Video Player Container: Mobile & Desktop Friendly, No Unsolicited Autoplay */
-                <div className="w-full h-full bg-slate-950 rounded-xl overflow-hidden flex flex-col items-center justify-center text-white relative">
-                  {customVideoUrl ? (
-                    customVideoUrl.includes('youtube.com') || customVideoUrl.includes('youtu.be') ? (
-                      <iframe
-                        src={getYouTubeEmbedUrl(customVideoUrl)}
-                        title="IQRA Intelligence Talking Book Video"
-                        className="w-full h-full border-0"
-                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
-                      />
-                    ) : (
-                      <video
-                        src={customVideoUrl}
-                        controls
-                        autoPlay={false}
-                        muted={false}
-                        playsInline
-                        preload="metadata"
-                        poster={STORE_CONFIG.product.video.posterImage}
-                        className="w-full h-full object-contain"
-                      >
-                        আপনার ব্রাউজার ভিডিও ট্যাগ সমর্থন করে না।
-                      </video>
-                    )
+                <div className="w-full h-full bg-slate-900 flex items-center justify-center">
+                  {embedVideoUrl ? (
+                    <iframe
+                      src={`${embedVideoUrl}?rel=0&modestbranding=1`}
+                      title="IQRA Talking Book Video"
+                      className="w-full h-full border-0"
+                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
                   ) : (
-                    /* Video Placeholder for Seller's Own Video */
-                    <div className="p-6 text-center space-y-3 max-w-sm">
-                      <div className="w-14 h-14 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-500/40">
-                        <Play className="w-7 h-7 ml-0.5 fill-amber-400" />
-                      </div>
-                      <h4 className="text-sm font-bold text-white">
-                        আপনার তৈরি করা ভিডিও এখানে দেখাবে
-                      </h4>
-                      <p className="text-xs text-slate-300 leading-relaxed">
-                        ভিডিও যুক্ত করতে <code className="bg-slate-800 text-amber-300 px-1.5 py-0.5 rounded font-mono text-[11px]">src/config/storeConfig.ts</code> ফাইলে <code className="text-amber-300">videoUrl</code> বসিয়ে দিন (যেমন: আপনার ইউটিউব ভিডিও বা mp4 ফাইল)।
-                      </p>
-                      
-                      {/* Optional live video preview input for seller testing */}
-                      <div className="pt-2">
-                        <input
-                          type="text"
-                          placeholder="অথবা ভিডিও লিংক পেস্ট করে টেস্ট করুন"
-                          value={customVideoUrl}
-                          onChange={(e) => setCustomVideoUrl(e.target.value)}
-                          className="w-full px-2.5 py-1.5 text-xs bg-slate-900 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 outline-none"
-                        />
-                      </div>
-                    </div>
+                    <p className="text-white text-xs">ভিডিও লোড হচ্ছে...</p>
                   )}
                 </div>
               )}
             </div>
 
-            {/* Thumbnail switcher */}
-            {activeMedia === 'image' ? (
+            {/* 3 Authentic Photo Thumbnails */}
+            {activeMedia === 'image' && (
               <div className="grid grid-cols-3 gap-2">
                 {galleryImages.map((img, idx) => (
                   <button
                     key={idx}
                     type="button"
-                    onClick={() => setActiveImage(img.src)}
+                    onClick={() => setActiveImageIndex(idx)}
                     className={`relative rounded-xl overflow-hidden border-2 transition-all cursor-pointer aspect-4/3 p-0.5 bg-white ${
-                      activeImage === img.src ? 'border-amber-500 ring-2 ring-amber-200 shadow-sm' : 'border-slate-200 hover:border-amber-300 opacity-80 hover:opacity-100'
+                      activeImageIndex === idx
+                        ? 'border-blue-600 ring-2 ring-blue-100'
+                        : 'border-slate-200 opacity-80 hover:opacity-100 hover:border-slate-300'
                     }`}
-                    title={img.label}
                   >
                     <img
                       src={img.src}
@@ -336,36 +262,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenGallery }) => {
                       className="w-full h-full object-cover rounded-lg"
                       referrerPolicy="no-referrer"
                     />
-                    <span className="sr-only">{img.label}</span>
                   </button>
                 ))}
               </div>
-            ) : (
-              <p className="text-center text-xs text-slate-500 font-medium">
-                * ভিডিওতে সাউন্ড শুনতে প্লে বাটনে ক্লিক করে ভলিউম অন করুন
-              </p>
             )}
 
-            {/* Quick Action to open HD Images Gallery */}
-            <button
-              type="button"
-              onClick={() => {
-                const idx = galleryImages.findIndex(img => img.src === activeImage);
-                onOpenGallery?.(idx >= 0 ? idx : 0);
-              }}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-amber-50 hover:bg-amber-100/90 border border-amber-300 text-amber-900 text-xs font-bold transition-all shadow-xs active:scale-[0.99] cursor-pointer"
-            >
-              <ImageIcon className="w-4 h-4 text-amber-600" />
-              <span>📸 আসল ৩টি প্রোডাক্টের ছবি বড় করে দেখুন</span>
-            </button>
-
             <p className="text-center text-xs text-slate-500">
-              ছবি ও ভিডিওতে ক্লিক করে আসল বই ও প্যাকেজ দেখে নিন
+              * আসল ছবি ও ভিডিও দেখে সম্পূর্ণ নিশ্চিত হয়ে অর্ডার করুন
             </p>
 
           </div>
 
         </div>
+
       </div>
     </section>
   );
