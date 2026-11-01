@@ -239,8 +239,8 @@ export const STORE_CONFIG = {
 
   // ফেসবুক মেটা পিক্সেল কনফিগারেশন
   metaPixel: {
-    defaultPixelId: '', 
-    testMode: true,
+    defaultPixelId: '1125151690106444', 
+    testMode: false,
   },
 
   // ট্রাস্ট ও পলিসি
